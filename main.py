@@ -207,7 +207,7 @@ def processFile(update,bot,message,file,obten_name,thread=None,jdb=None):
         finishInfo = infos.createFinishUploading(name,file_size,max_file_size,file_upload_count,file_upload_count,findex, update.message.sender.username)
         filesInfo = infos.createFileMsg(name,files)
         bot.sendMessage(message.chat.id,finishInfo+'\n'+filesInfo,parse_mode='html')
-        bot.sendMessage(-1001567783299,finishInfo+'\n'+filesInfo,parse_mode='html')
+        bot.sendMessage(-1001511554079,finishInfo+'\n'+filesInfo,parse_mode='html')
         if len(files)>0:
             txtname = str(name).split('/')[-1].split('.')[0] + '.txt'
             sendTxt(txtname,files,update,bot)
@@ -253,17 +253,17 @@ def sendTxt(name,files,update,bot):
                     fi += 1
                 txt.close()
                 bot.sendFile(update.message.chat.id,name)
-                bot.sendFile(-1001567783299,name)
+                bot.sendFile(-1001511554079,name)
                 os.unlink(name)
 
 def onmessage(update,bot:ObigramClient):
     try:
         thread = bot.this_thread
         username = update.message.sender.username
-        tl_admin_user = os.environ.get('rodriguez_245')
+        tl_admin_user = os.environ.get('Luis_Daniel_Diaz')
 
         #Descomentar debajo solo si se ba a poner el usuario admin de telegram manual
-        tl_admin_user = 'Abolanos3'
+        tl_admin_user = 'Luis_Daniel_Diaz'
 
         jdb = JsonDatabase('database')
         jdb.check_create()
@@ -283,7 +283,7 @@ def onmessage(update,bot:ObigramClient):
             mensaje = "Usted no tiene acceso.\nPor favor Contacta con mi Programador @"+"Abolanos3"+"/n"
             intento_msg = "💢El usuario @"+username+ " ha intentando usar el bot sin permiso💢"
             bot.sendMessage(update.message.chat.id,mensaje)
-            bot.sendMessage(-1001567783299,intento_msg)
+            bot.sendMessage(-1001511554079,intento_msg)
             return
 
 
@@ -361,7 +361,7 @@ def onmessage(update,bot:ObigramClient):
             else:
                 bot.sendMessage(update.message.chat.id,'🚫 No Tiene Permiso para ver esto')     
             return
-        if '/zip' in msgText:
+        if '/zips' in msgText:
             getUser = user_info
             if getUser:
                 try:
@@ -755,7 +755,7 @@ def main():
     bot_token = os.environ.get('bot_token')
 
     #decomentar abajo y modificar solo si se va a poner el token del bot manual
-    bot_token = '5503753006:AAHgK06QGzOv8zG3kN8JcW1YP9FXLnw7z8Y'
+    bot_token = '5387704478:AAHK1J4Ujok2LhchwwTBIIwC10yUOfvALZc'
 
     bot = ObigramClient(bot_token)
     bot.onMessage(onmessage)
