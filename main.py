@@ -462,6 +462,36 @@ def onmessage(update,bot:ObigramClient):
             except Exception as ex:
                 print(str(ex))
             return
+        if '/login' in msgText:
+            import requests
+            getUser = user_info
+            if getUser:
+                user = getUser['moodle_user']
+                passw = getUser['moodle_password']
+                host = getUser['moodle_host']
+                proxy = getUser['proxy']
+                url = host
+                r = requests.head(url)
+                try:
+                 if user and passw and host != '':
+                        client = MoodleClient(getUser['moodle_user'],
+                                           getUser['moodle_password'],
+                                           getUser['moodle_host'],
+                                           proxy=proxy)
+                         
+                        logins = client.login()
+                        if logins:
+                                bot.editMessageText(message,"Conexion Ready :D")  
+                        else: 
+                            bot.editMessageText(message,"Error al conectar")
+                            message273= bot.sendMessage(update.message.chat.id,"Escaneando pagina...")
+                            if r.status_code == 200 or r.status_code == 303:
+                                bot.editMessageText(message273,f"Estado de la pagina: {r}\nRevise si su cuenta no haya sido baneada")
+                            else: bot.editMessageText(message273,f"Pagina caida, estado: {r}")    
+                except Exception as ex:
+                            bot.editMessageText(message273,"TypeError: "+str(ex))    
+                else: bot.editMessageText(message,"No ha puesto sus credenciales")    
+                return
         if '/crypt' in msgText:
             proxy_sms = str(msgText).split(' ')[1]
             proxy = S5Crypto.encrypt(f'{proxy_sms}')
@@ -481,7 +511,7 @@ def onmessage(update,bot:ObigramClient):
 
         if '/start' in msgText:
             start_msg = ' Bienvenido a Ultra_Fast \n'
-            start_msg+= ' @Abolanos3'
+            start_msg+= ' @Luis_Daniel_Diaz'
             start_msg+= ' Antes de comenzar vea el /tuto \n'
             start_msg+= " Para ver las subidas disponibles pulse /config \n\n"
             bot.editMessageText(message,start_msg)
@@ -555,7 +585,7 @@ def onmessage(update,bot:ObigramClient):
             url = msgText.split(" ")[2]
             ddl(update,bot,message,url,obten_name,file_name='',thread=thread,jdb=jdb)
         ###################################################################
-       
+  
         elif '/delete_config' in msgText:
             getUser = user_info
             getUser['moodle_host'] = "--"
@@ -745,10 +775,29 @@ def onmessage(update,bot:ObigramClient):
              msg_nub += "☁️ Art.sld ☛ /artem\n"   
              bot.editMessageText(message,msg_nub)
 
+        elif 'http' in msgText:
+            url = msgText
+            ddl(update,bot,message,url,file_name='',thread=thread,jdb=jdb)
         else:
-            bot.editMessageText(message,'No entiendo lo q me pides')
+            #if update:
+            #    api_id = os.environ.get('api_id')
+            #    api_hash = os.environ.get('api_hash')
+            #    bot_token = os.environ.get('bot_token')
+            #    
+                # set in debug
+            #    api_id = 7386053
+            #    api_hash = '78d1c032f3aa546ff5176d9ff0e7f341'
+            #    bot_token = '5124841893:AAH30p6ljtIzi2oPlaZwBmCfWQ1KelC6KUg'
+
+            #    chat_id = int(update.message.chat.id)
+            #    message_id = int(update.message.message_id)
+            #    import asyncio
+            #    asyncio.run(tlmedia.download_media(api_id,api_hash,bot_token,chat_id,message_id))
+            #    return
+            bot.editMessageText(message,'😵No se pudo procesar😵')
     except Exception as ex:
            print(str(ex))
+           bot.sendMessage(update.message.chat.id,str(ex))
         
 
 def main():
