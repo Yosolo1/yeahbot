@@ -29,33 +29,35 @@ def porcent(index,max):
     return porcent
 
 def createDownloading(filename,totalBits,currentBits,speed,time,tid=''):
-    msg = "▶️𝐄𝐬𝐭𝐚𝐝𝐨: Descargando archivo...\n\n"
-    msg += "📔: "+filename+'\n\n'
-    msg += "⬇️𝐃𝐞𝐬𝐜𝐚𝐫𝐠𝐚𝐝𝐨: "+sizeof_fmt(currentBits) + ' de ' + sizeof_fmt(totalBits) + '\n'
-    msg += "⚡️𝐒𝐏𝐃: "+sizeof_fmt(speed)+'/s ''| ''⏰𝐄𝐓𝐀: '+str(datetime.timedelta(seconds=int(time)))+'s\n\n'
+    msg = "📥Descargando...\n\n"
+    msg += "📔Nombre "+filename+'\n\n'
+    msg += "⬇️Descargado: "+sizeof_fmt(currentBits) + ' de ' + sizeof_fmt(totalBits) + '\n'
+    msg += "⚡️Velocidad: "+sizeof_fmt(speed)+'/s '\n'
+    msg += "⏰Tiempo restante: '+str(datetime.timedelta(seconds=int(time)))+'s '\n'
     if tid!='':
         msg+= '🚫 /cancel_' + tid
     return msg
 
 def createUploading(filename,totalBits,currentBits,speed,time,originalname=''):
-    msg = "▶️𝐄𝐬𝐭𝐚𝐝𝐨: Agregando a la nube...\n\n"
+    msg = "Subiendo...\n\n"
     if originalname!='':
         msg = str(msg).replace(filename,originalname)
         msg+= '📚: ' + str(filename)+'\n\n'
     else:
-        msg += '📚: '+filename+'\n\n'
-    msg += "⬆️𝐒𝐮𝐛𝐢𝐝𝐨: "+sizeof_fmt(currentBits) + ' de ' + sizeof_fmt(totalBits) + '\n'
-    msg += "⚡️𝐒𝐏𝐃: "+sizeof_fmt(speed)+'/s ''| ''⏰𝐄𝐓𝐀: '+str(datetime.timedelta(seconds=int(time)))+'s\n\n'
+        msg += '📚Nombre '+filename+'\n\n'
+    msg += "⬆️Subido: "+sizeof_fmt(currentBits) + ' de ' + sizeof_fmt(totalBits) + '\n'
+    msg += "⚡Velocidad: "+sizeof_fmt(speed)+'/s '\n'
+    msg += "⏰Tiempo restante: '+str(datetime.timedelta(seconds=int(time)))+'s '\n'
     return msg
 
 def createCompresing(filename,filesize,splitsize):
-    msg  = "▶️𝐄𝐬𝐭𝐚𝐝𝐨: Comprimiendo archivo...\n\n"
+    msg  = "🗜️Comprimiendo...\n\n"
     msg += "🗜Comprimiendo "+ str(round(int(filesize/splitsize)+1,1))+" en partes de "+str(sizeof_fmt(splitsize))+'\n\n'
     return msg
 
 def createFinishUploading(filename,filesize,split_size,current,count,findex,username):
-    msg = "▶️𝐄𝐬𝐭𝐚𝐝𝐨: Subida finalizada ...\n\n"
-    msg += "📓: "+ str(filename)+'\n\n'
+    msg = "✅PROCESO FINALIZADO...\n\n"
+    msg += "📓Nombre "+ str(filename)+'\n\n'
     msg += "📦 ¡Han sido guardados correctamente "+str(sizeof_fmt(filesize)) + " por el usuario @"+username+"\n"
     return msg
 
@@ -67,7 +69,7 @@ def createFileMsg(filename,files):
             url = urllib.parse.unquote(f['directurl'],encoding='utf-8', errors='replace')
             #msg+= '<a href="'+f['url']+'">🔗' + f['name'] + '🔗</a>'
             msg+= "<a href='"+url+"'>➾"+f['name']+'</a>\n'
-        msg += "\n⚡️¡Somos Ultra_FAST, siempre su mejor opción!⚡️\n\n"
+        msg += "\n⚡️¡Toque los enlaces para descargarlos o descargue desde los TXT!⚡️\n\n"
         return msg
     return ''
 
